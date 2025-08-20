@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Hero from '../components/Hero.astro'
+import Features from '../components/Features.astro'
+import Demo from '../components/Demo.astro'
+import Templates from '../components/Templates.astro'
+import Testimonials from '../components/Testimonials.astro'
+import Pricing from '../components/Pricing.astro'
+import CTA from '../components/CTA.astro'
+
+const title = 'AI-First Portfolio Framework - Build Portfolios for the AI Era'
+const description = 'The world\'s first portfolio framework designed specifically for AI discoverability. Build portfolios that AI understands, search engines love, and users adore.'
+---
+
+<Layout title={title} description={description}>
+  <Hero />
+  <Features />
+  <Demo />
+  <Templates />
+  <Testimonials />
+  <Pricing />
+  <CTA />
+</Layout>

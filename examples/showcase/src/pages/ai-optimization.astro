@@ -1,0 +1,506 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { portfolioData } from '../data/portfolio';
+
+const { personalInfo } = portfolioData;
+
+// Mock AI visibility scores for demonstration
+const aiScores = {
+  overall: 88,
+  content: 92,
+  structure: 85,
+  seo: 90,
+  performance: 84,
+  accessibility: 89
+};
+
+const crawlerResults = [
+  {
+    name: 'OpenAI GPT',
+    score: 88,
+    status: 'Excellent',
+    description: 'Content understanding and context analysis',
+    recommendations: [
+      'Strong semantic structure detected',
+      'Clear content hierarchy',
+      'Good use of contextual information'
+    ],
+    icon: '🤖'
+  },
+  {
+    name: 'Google Gemini',
+    score: 90,
+    status: 'Excellent',
+    description: 'Structured data and comprehensive analysis',
+    recommendations: [
+      'Schema.org markup properly implemented',
+      'Rich structured data available',
+      'Comprehensive metadata coverage'
+    ],
+    icon: '🔍'
+  },
+  {
+    name: 'Claude',
+    score: 85,
+    status: 'Very Good',
+    description: 'Content quality and safety evaluation',
+    recommendations: [
+      'High-quality, professional content',
+      'Clear and accessible writing style',
+      'Good content organization'
+    ],
+    icon: '🧠'
+  }
+];
+
+const features = [
+  {
+    title: 'LLMs.txt Generation',
+    description: 'AI-readable resume format that provides structured information about skills, experience, and projects.',
+    icon: '📄',
+    status: 'Active',
+    details: 'Automatically generated from portfolio data with standardized format for AI consumption.'
+  },
+  {
+    title: 'Schema.org Structured Data',
+    description: 'Rich metadata markup that helps search engines and AI systems understand content context.',
+    icon: '🏗️',
+    status: 'Active',
+    details: 'Person, Organization, and WebSite schemas implemented with comprehensive property coverage.'
+  },
+  {
+    title: 'Semantic HTML Structure',
+    description: 'Properly structured HTML with semantic elements for improved AI comprehension.',
+    icon: '🏷️',
+    status: 'Active',
+    details: 'Semantic tags, proper heading hierarchy, and ARIA labels for accessibility and AI parsing.'
+  },
+  {
+    title: 'AI Crawler Optimization',
+    description: 'Optimized for different AI crawler behaviors and preferences.',
+    icon: '🕷️',
+    status: 'Active',
+    details: 'JavaScript handling, timeout optimization, and content prioritization for various AI systems.'
+  },
+  {
+    title: 'Performance Optimization',
+    description: 'Fast loading times and efficient resource usage for better AI crawler experience.',
+    icon: '⚡',
+    status: 'Active',
+    details: 'Core Web Vitals optimization, image optimization, and efficient caching strategies.'
+  },
+  {
+    title: 'Content Quality Assurance',
+    description: 'High-quality, well-structured content that AI systems can easily understand and index.',
+    icon: '✨',
+    status: 'Active',
+    details: 'Clear writing, proper formatting, and comprehensive information coverage.'
+  }
+];
+---
+
+<BaseLayout 
+  title="AI Optimization Showcase - Alex Chen"
+  description="Explore how this portfolio is optimized for AI discovery and understanding. See real-time AI visibility scores and optimization features."
+>
+  <!-- Hero Section -->
+  <section class="section bg-gradient-to-br from-blue-600 via-purple-600 to-teal-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="space-y-8">
+        <h1 class="text-4xl lg:text-6xl font-bold">
+          AI Optimization <span class="text-yellow-300">Showcase</span>
+        </h1>
+        <p class="text-xl lg:text-2xl text-blue-100 max-w-4xl mx-auto">
+          This portfolio demonstrates advanced AI optimization techniques for maximum discoverability and understanding by AI systems
+        </p>
+        
+        <!-- Overall Score -->
+        <div class="inline-flex items-center space-x-4 bg-white/20 backdrop-blur-md rounded-2xl p-6">
+          <div class="text-center">
+            <div class="text-4xl font-bold text-yellow-300">{aiScores.overall}%</div>
+            <div class="text-sm text-blue-100">Overall AI Visibility</div>
+          </div>
+          <div class="w-px h-12 bg-white/30"></div>
+          <div class="text-left">
+            <div class="text-lg font-semibold">Excellent Rating</div>
+            <div class="text-sm text-blue-100">Optimized for 3 major AI systems</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Scores Dashboard -->
+  <section class="section bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">AI Visibility Metrics</h2>
+        <p class="section-subtitle">
+          Real-time analysis of how well this portfolio performs across different AI evaluation criteria
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {Object.entries(aiScores).filter(([key]) => key !== 'overall').map(([category, score]) => (
+          <div class="card p-6 text-center">
+            <div class="relative w-24 h-24 mx-auto mb-4">
+              <svg class="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                <path
+                  d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-dasharray={`${score}, 100`}
+                  class="text-blue-600 dark:text-blue-400"
+                />
+                <path
+                  d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="text-gray-200 dark:text-gray-700"
+                />
+              </svg>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <span class="text-2xl font-bold text-gray-900 dark:text-white">{score}%</span>
+              </div>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white capitalize mb-2">
+              {category}
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">
+              {category === 'content' && 'Quality and relevance of content for AI understanding'}
+              {category === 'structure' && 'HTML structure and semantic markup quality'}
+              {category === 'seo' && 'Search engine and AI crawler optimization'}
+              {category === 'performance' && 'Loading speed and technical performance'}
+              {category === 'accessibility' && 'Accessibility features and inclusive design'}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Crawler Results -->
+  <section class="section bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">AI Crawler Analysis</h2>
+        <p class="section-subtitle">
+          How different AI systems evaluate and understand this portfolio
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {crawlerResults.map((crawler, index) => (
+          <div class={`card p-6 reveal ${index % 2 === 0 ? 'reveal-left' : 'reveal-right'}`}>
+            <div class="flex items-center space-x-4 mb-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-2xl">
+                {crawler.icon}
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">{crawler.name}</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">{crawler.description}</p>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">AI Visibility Score</span>
+                <span class={`text-sm font-bold ${
+                  crawler.score >= 90 ? 'text-green-600' :
+                  crawler.score >= 80 ? 'text-blue-600' :
+                  'text-yellow-600'
+                }`}>
+                  {crawler.score}% - {crawler.status}
+                </span>
+              </div>
+              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div 
+                  class={`h-2 rounded-full transition-all duration-1000 ${
+                    crawler.score >= 90 ? 'bg-green-500' :
+                    crawler.score >= 80 ? 'bg-blue-500' :
+                    'bg-yellow-500'
+                  }`}
+                  style={`width: ${crawler.score}%`}
+                ></div>
+              </div>
+            </div>
+            
+            <div>
+              <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Analysis Results:</h4>
+              <ul class="space-y-2">
+                {crawler.recommendations.map(rec => (
+                  <li class="flex items-start space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                    <svg class="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span>{rec}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Optimization Features -->
+  <section class="section bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">AI Optimization Features</h2>
+        <p class="section-subtitle">
+          Comprehensive AI optimization techniques implemented in this portfolio
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {features.map((feature, index) => (
+          <div class={`card p-6 reveal ${index % 3 === 0 ? 'reveal-left' : index % 3 === 1 ? 'reveal' : 'reveal-right'}`}>
+            <div class="flex items-start space-x-4 mb-4">
+              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 text-2xl">
+                {feature.icon}
+              </div>
+              <div>
+                <div class="flex items-center space-x-2 mb-2">
+                  <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{feature.title}</h3>
+                  <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-xs rounded-full">
+                    {feature.status}
+                  </span>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">
+                  {feature.description}
+                </p>
+                <p class="text-xs text-gray-500 dark:text-gray-500">
+                  {feature.details}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Demo Section -->
+  <section class="section bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="space-y-8">
+        <h2 class="text-3xl lg:text-4xl font-bold">Try AI Optimization Features</h2>
+        <p class="text-xl text-indigo-100 max-w-3xl mx-auto">
+          Experience the AI optimization features implemented in this portfolio
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <a href="/llms.txt" class="card bg-white/10 backdrop-blur-md p-6 hover:bg-white/20 transition-all group">
+            <div class="text-4xl mb-4">📄</div>
+            <h3 class="text-lg font-semibold mb-2">View LLMs.txt</h3>
+            <p class="text-sm text-indigo-100">AI-readable resume format</p>
+            <div class="mt-4 text-yellow-300 group-hover:translate-x-1 transition-transform">→</div>
+          </a>
+          
+          <button onclick="showStructuredData()" class="card bg-white/10 backdrop-blur-md p-6 hover:bg-white/20 transition-all group">
+            <div class="text-4xl mb-4">🏗️</div>
+            <h3 class="text-lg font-semibold mb-2">View Schema.org Data</h3>
+            <p class="text-sm text-indigo-100">Structured data markup</p>
+            <div class="mt-4 text-yellow-300 group-hover:translate-x-1 transition-transform">→</div>
+          </button>
+          
+          <button onclick="runAITest()" class="card bg-white/10 backdrop-blur-md p-6 hover:bg-white/20 transition-all group">
+            <div class="text-4xl mb-4">🤖</div>
+            <h3 class="text-lg font-semibold mb-2">Test AI Visibility</h3>
+            <p class="text-sm text-indigo-100">Run real-time AI analysis</p>
+            <div class="mt-4 text-yellow-300 group-hover:translate-x-1 transition-transform">→</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Implementation -->
+  <section class="section bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">Technical Implementation</h2>
+        <p class="section-subtitle">
+          Behind the scenes: How AI optimization is implemented
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Code Example -->
+        <div class="reveal-left">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">LLMs.txt Generation</h3>
+          <div class="bg-gray-900 rounded-lg p-6 overflow-x-auto">
+            <pre class="text-green-400 text-sm"><code># Alex Chen
+## Professional Title: Senior Full-Stack Developer & AI Enthusiast
+## Bio: Passionate full-stack developer with 8+ years of experience...
+## Contact: alex@alexchen.dev
+## Website: https://ai-portfolio-showcase.vercel.app
+## Location: San Francisco, CA, USA
+
+## Technical Skills:
+- JavaScript (Expert) - Frontend
+- TypeScript (Expert) - Frontend  
+- React (Expert) - Frontend
+- Node.js (Expert) - Backend
+- Python (Advanced) - Backend
+
+## Featured Projects:
+### AI-First Portfolio Generator
+Description: Intelligent portfolio website generator...
+Technologies: TypeScript, Astro, Node.js, Puppeteer
+Status: completed
+
+## API Endpoints:
+- GET /llms.txt - This file
+- GET /api/profile - Profile data
+- GET /api/projects - Projects list</code></pre>
+          </div>
+        </div>
+        
+        <!-- Schema.org Example -->
+        <div class="reveal-right">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Schema.org Structured Data</h3>
+          <div class="bg-gray-900 rounded-lg p-6 overflow-x-auto">
+            <pre class="text-blue-400 text-sm"><code>{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Alex Chen",
+  "jobTitle": "Senior Full-Stack Developer",
+  "description": "Passionate developer...",
+  "email": "alex@alexchen.dev",
+  "url": "https://ai-portfolio-showcase.vercel.app",
+  "knowsAbout": [
+    "JavaScript", "React", "Node.js", "AI/ML"
+  ],
+  "sameAs": [
+    "https://github.com/alexchen-dev",
+    "https://linkedin.com/in/alex-chen-dev"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "TechCorp Inc."
+  }
+}</code></pre>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Implementation Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+        <div class="text-center">
+          <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">100%</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Semantic HTML</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-green-600 dark:text-green-400">5</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Schema Types</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-purple-600 dark:text-purple-400">3</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">AI Crawlers</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold text-yellow-600 dark:text-yellow-400">A+</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Performance</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<!-- Modal for Structured Data -->
+<div id="schema-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-2xl w-full mx-4 max-h-96 overflow-y-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-bold text-gray-900 dark:text-white">Schema.org Structured Data</h3>
+      <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <pre class="bg-gray-100 dark:bg-gray-900 p-4 rounded text-sm overflow-x-auto" id="schema-content"></pre>
+  </div>
+</div>
+
+<script>
+  // Intersection Observer for animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all reveal elements
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el) => {
+    observer.observe(el);
+  });
+
+  // Show structured data modal
+  function showStructuredData() {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Alex Chen",
+      "jobTitle": "Senior Full-Stack Developer & AI Enthusiast",
+      "description": "Passionate full-stack developer with 8+ years of experience building scalable web applications and AI-powered solutions.",
+      "email": "alex@alexchen.dev",
+      "url": "https://ai-portfolio-showcase.vercel.app",
+      "image": "https://ai-portfolio-showcase.vercel.app/images/alex-avatar.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "San Francisco",
+        "addressRegion": "CA",
+        "addressCountry": "USA"
+      },
+      "knowsAbout": [
+        "JavaScript", "TypeScript", "React", "Node.js", "Python", 
+        "AI/ML", "Web Development", "Full-Stack Development"
+      ],
+      "sameAs": [
+        "https://github.com/alexchen-dev",
+        "https://linkedin.com/in/alex-chen-dev",
+        "https://twitter.com/alexchen_dev"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "TechCorp Inc."
+      }
+    };
+    
+    document.getElementById('schema-content').textContent = JSON.stringify(schema, null, 2);
+    document.getElementById('schema-modal').classList.remove('hidden');
+  }
+
+  // Close modal
+  function closeModal() {
+    document.getElementById('schema-modal').classList.add('hidden');
+  }
+
+  // Run AI test
+  function runAITest() {
+    alert('AI Visibility Test would run here!\n\nThis would analyze:\n- Content structure\n- Semantic markup\n- Schema.org data\n- Performance metrics\n- Accessibility features\n\nCurrent Score: 88% - Excellent');
+  }
+
+  // Close modal on outside click
+  document.getElementById('schema-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'schema-modal') {
+      closeModal();
+    }
+  });
+</script>

@@ -1,0 +1,599 @@
+---
+export interface Props {
+  showMap?: boolean;
+  mapEmbedUrl?: string;
+  formAction?: string;
+  enableNotifications?: boolean;
+  customFields?: Array<{
+    name: string;
+    label: string;
+    type: 'text' | 'email' | 'tel' | 'textarea' | 'select';
+    required?: boolean;
+    placeholder?: string;
+    options?: string[]; // For select fields
+  }>;
+  socialLinks?: {
+    email?: string;
+    phone?: string;
+    linkedin?: string;
+    github?: string;
+    twitter?: string;
+  };
+  businessHours?: {
+    timezone: string;
+    schedule: Array<{
+      day: string;
+      hours: string;
+    }>;
+  };
+}
+
+const {
+  showMap = false,
+  mapEmbedUrl,
+  formAction = '/api/contact',
+  enableNotifications = true,
+  customFields = [],
+  socialLinks = {},
+  businessHours
+} = Astro.props;
+
+// Default form fields
+const defaultFields = [
+  { name: 'name', label: 'Full Name', type: 'text', required: true, placeholder: 'John Doe' },
+  { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'john@example.com' },
+  { name: 'subject', label: 'Subject', type: 'text', required: true, placeholder: 'Project Inquiry' },
+  { name: 'message', label: 'Message', type: 'textarea', required: true, placeholder: 'Tell me about your project...' }
+];
+
+const fields = customFields.length > 0 ? customFields : defaultFields;
+---
+
+<section class="py-16 bg-white dark:bg-gray-900" id="contact">
+  <div class="container mx-auto px-4">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Get In Touch
+      </h2>
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        Have a project in mind or want to collaborate? I'd love to hear from you. 
+        Let's discuss how we can work together to bring your ideas to life.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <!-- Contact Form -->
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-8">
+        <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+          Send a Message
+        </h3>
+        
+        <form 
+          id="contact-form" 
+          action={formAction}
+          method="POST"
+          class="space-y-6"
+          novalidate
+        >
+          {fields.map((field) => (
+            <div class="form-group">
+              <label 
+                for={field.name}
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >
+                {field.label} {field.required && <span class="text-red-500">*</span>}
+              </label>
+              
+              {field.type === 'textarea' ? (
+                <textarea
+                  id={field.name}
+                  name={field.name}
+                  required={field.required}
+                  placeholder={field.placeholder}
+                  rows="5"
+                  class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white resize-none transition-all duration-200"
+                ></textarea>
+              ) : field.type === 'select' ? (
+                <select
+                  id={field.name}
+                  name={field.name}
+                  required={field.required}
+                  class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all duration-200"
+                >
+                  <option value="">Select {field.label}</option>
+                  {field.options?.map(option => (
+                    <option value={option}>{option}</option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type={field.type}
+                  id={field.name}
+                  name={field.name}
+                  required={field.required}
+                  placeholder={field.placeholder}
+                  class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all duration-200"
+                />
+              )}
+              
+              <div class="error-message text-red-500 text-sm mt-1 hidden"></div>
+            </div>
+          ))}
+
+          <!-- Honeypot field for spam protection -->
+          <div style="position: absolute; left: -5000px;" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-[1.02] focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            id="submit-btn"
+          >
+            <span class="submit-text">Send Message</span>
+            <svg class="submit-loading w-5 h-5 animate-spin hidden inline-block ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </button>
+
+          <!-- Success/Error Messages -->
+          <div id="form-message" class="hidden p-4 rounded-lg"></div>
+        </form>
+
+        <!-- Alternative Contact Methods -->
+        <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-600">
+          <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            Prefer to reach out directly?
+          </h4>
+          <div class="space-y-3">
+            {socialLinks.email && (
+              <a 
+                href={`mailto:${socialLinks.email}`}
+                class="flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                </svg>
+                {socialLinks.email}
+              </a>
+            )}
+            
+            {socialLinks.phone && (
+              <a 
+                href={`tel:${socialLinks.phone}`}
+                class="flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                {socialLinks.phone}
+              </a>
+            )}
+            
+            {socialLinks.linkedin && (
+              <a 
+                href={socialLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Info & Map -->
+      <div class="space-y-8">
+        {/* Contact Information */}
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-8">
+          <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+            Let's Connect
+          </h3>
+          
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+              <div class="ml-4">
+                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Location</h4>
+                <p class="text-gray-600 dark:text-gray-400">
+                  Available for remote work worldwide
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <div class="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div class="ml-4">
+                <h4 class="text-lg font-medium text-gray-900 dark:text-white">Response Time</h4>
+                <p class="text-gray-600 dark:text-gray-400">
+                  Usually within 24 hours
+                </p>
+              </div>
+            </div>
+
+            {businessHours && (
+              <div class="flex items-start">
+                <div class="flex-shrink-0 w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div class="ml-4">
+                  <h4 class="text-lg font-medium text-gray-900 dark:text-white">Business Hours</h4>
+                  <div class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="mb-1">Timezone: {businessHours.timezone}</p>
+                    {businessHours.schedule.map(({ day, hours }) => (
+                      <p>{day}: {hours}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <!-- Call-to-Action Cards -->
+          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center">
+              <div class="text-2xl mb-2">💼</div>
+              <h4 class="font-semibold text-gray-900 dark:text-white mb-1">
+                Looking for work?
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Available for freelance projects
+              </p>
+            </div>
+            <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg text-center">
+              <div class="text-2xl mb-2">🤝</div>
+              <h4 class="font-semibold text-gray-900 dark:text-white mb-1">
+                Want to collaborate?
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Open to partnership opportunities
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Map Embed */}
+        {showMap && mapEmbedUrl && (
+          <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-2">
+            <iframe
+              src={mapEmbedUrl}
+              width="100%"
+              height="300"
+              style="border:0; border-radius: 8px;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Location Map"
+            ></iframe>
+          </div>
+        )}
+
+        {/* FAQ Section */}
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-8">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            Frequently Asked Questions
+          </h3>
+          <div class="space-y-4">
+            <details class="group">
+              <summary class="cursor-pointer font-medium text-gray-900 dark:text-white group-open:text-blue-600 dark:group-open:text-blue-400">
+                What's your typical project timeline?
+              </summary>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Project timelines vary depending on complexity, but most projects take 2-8 weeks from start to finish.
+              </p>
+            </details>
+            <details class="group">
+              <summary class="cursor-pointer font-medium text-gray-900 dark:text-white group-open:text-blue-600 dark:group-open:text-blue-400">
+                Do you work with international clients?
+              </summary>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Absolutely! I work with clients worldwide and am flexible with different time zones.
+              </p>
+            </details>
+            <details class="group">
+              <summary class="cursor-pointer font-medium text-gray-900 dark:text-white group-open:text-blue-600 dark:group-open:text-blue-400">
+                What information should I include in my message?
+              </summary>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Please include your project details, timeline, budget range, and any specific requirements or questions you have.
+              </p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JSON-LD Structured Data for Contact -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "mainEntity": {
+    "@type": "Person",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Professional Services",
+      "email": socialLinks.email,
+      "telephone": socialLinks.phone,
+      "availableLanguage": "English"
+    }
+  }
+})} />
+
+<script>
+  // Form validation and submission
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const submitText = submitBtn.querySelector('.submit-text');
+  const submitLoading = submitBtn.querySelector('.submit-loading');
+  const formMessage = document.getElementById('form-message');
+
+  // Custom validation messages
+  const validationMessages = {
+    email: 'Please enter a valid email address',
+    required: 'This field is required',
+    minLength: 'Message must be at least 10 characters long'
+  };
+
+  // Real-time validation
+  form.querySelectorAll('input, textarea, select').forEach(field => {
+    field.addEventListener('blur', validateField);
+    field.addEventListener('input', clearFieldError);
+  });
+
+  function validateField(event) {
+    const field = event.target;
+    const errorElement = field.parentNode.querySelector('.error-message');
+    let isValid = true;
+    let message = '';
+
+    // Required field validation
+    if (field.hasAttribute('required') && !field.value.trim()) {
+      isValid = false;
+      message = validationMessages.required;
+    }
+    
+    // Email validation
+    else if (field.type === 'email' && field.value) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(field.value)) {
+        isValid = false;
+        message = validationMessages.email;
+      }
+    }
+    
+    // Message length validation
+    else if (field.name === 'message' && field.value.length > 0 && field.value.length < 10) {
+      isValid = false;
+      message = validationMessages.minLength;
+    }
+
+    // Show/hide error
+    if (!isValid) {
+      field.classList.add('border-red-500');
+      errorElement.textContent = message;
+      errorElement.classList.remove('hidden');
+    } else {
+      field.classList.remove('border-red-500');
+      errorElement.classList.add('hidden');
+    }
+
+    return isValid;
+  }
+
+  function clearFieldError(event) {
+    const field = event.target;
+    const errorElement = field.parentNode.querySelector('.error-message');
+    field.classList.remove('border-red-500');
+    errorElement.classList.add('hidden');
+  }
+
+  // Form submission
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Validate all fields
+    const fields = form.querySelectorAll('input, textarea, select');
+    let isFormValid = true;
+    
+    fields.forEach(field => {
+      if (!validateField({ target: field })) {
+        isFormValid = false;
+      }
+    });
+
+    if (!isFormValid) {
+      showMessage('Please correct the errors above.', 'error');
+      return;
+    }
+
+    // Check honeypot
+    if (form.website.value) {
+      showMessage('Spam detected. Please try again.', 'error');
+      return;
+    }
+
+    // Show loading state
+    submitBtn.disabled = true;
+    submitText.textContent = 'Sending...';
+    submitLoading.classList.remove('hidden');
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        showMessage('Thank you for your message! I\'ll get back to you within 24 hours.', 'success');
+        form.reset();
+        
+        // Analytics tracking (if available)
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'contact_form_submit', {
+            'event_category': 'engagement',
+            'event_label': 'contact_form'
+          });
+        }
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      showMessage('Sorry, there was an error sending your message. Please try again or contact me directly.', 'error');
+    } finally {
+      // Reset loading state
+      submitBtn.disabled = false;
+      submitText.textContent = 'Send Message';
+      submitLoading.classList.add('hidden');
+    }
+  });
+
+  function showMessage(text, type) {
+    formMessage.textContent = text;
+    formMessage.classList.remove('hidden', 'bg-red-50', 'text-red-800', 'bg-green-50', 'text-green-800');
+    
+    if (type === 'error') {
+      formMessage.classList.add('bg-red-50', 'text-red-800', 'border', 'border-red-200');
+    } else if (type === 'success') {
+      formMessage.classList.add('bg-green-50', 'text-green-800', 'border', 'border-green-200');
+    }
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      formMessage.classList.add('hidden');
+    }, 5000);
+  }
+
+  // Accessibility improvements
+  form.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+    }
+  });
+
+  // Character counter for message field
+  const messageField = form.querySelector('textarea[name="message"]');
+  if (messageField) {
+    const maxLength = 1000;
+    const counter = document.createElement('div');
+    counter.className = 'text-sm text-gray-500 text-right mt-1';
+    messageField.parentNode.appendChild(counter);
+
+    messageField.addEventListener('input', () => {
+      const remaining = maxLength - messageField.value.length;
+      counter.textContent = `${remaining} characters remaining`;
+      
+      if (remaining < 0) {
+        counter.classList.add('text-red-500');
+        messageField.classList.add('border-red-500');
+      } else {
+        counter.classList.remove('text-red-500');
+        messageField.classList.remove('border-red-500');
+      }
+    });
+  }
+</script>
+
+<style>
+  /* Form focus styles */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .dark input:focus,
+  .dark textarea:focus,
+  .dark select:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+
+  /* Details/summary styling */
+  details > summary {
+    list-style: none;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .dark details > summary {
+    border-bottom-color: #374151;
+  }
+
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details > summary::after {
+    content: '+';
+    float: right;
+    font-weight: bold;
+    transform: rotate(0deg);
+    transition: transform 0.2s;
+  }
+
+  details[open] > summary::after {
+    transform: rotate(45deg);
+  }
+
+  /* Form animations */
+  .form-group {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .form-group:nth-child(1) { animation-delay: 0.1s; }
+  .form-group:nth-child(2) { animation-delay: 0.2s; }
+  .form-group:nth-child(3) { animation-delay: 0.3s; }
+  .form-group:nth-child(4) { animation-delay: 0.4s; }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Loading spinner */
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

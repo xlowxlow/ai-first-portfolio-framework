@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah Chen - Portfolio | Structured Data Example</title>
+    
+    <!-- Example of generated structured data for a portfolio website -->
+    
+    <!-- Person Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://sarahchen.dev/#person",
+      "name": "Sarah Chen",
+      "jobTitle": "Senior Software Engineer & AI Specialist",
+      "email": "sarah.chen@example.com",
+      "telephone": "+1-206-555-0199",
+      "url": "https://sarahchen.dev",
+      "image": "https://sarahchen.dev/images/avatar.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Seattle",
+        "addressRegion": "WA",
+        "addressCountry": "USA"
+      },
+      "sameAs": [
+        "https://linkedin.com/in/sarahchen-dev",
+        "https://github.com/sarahchen",
+        "https://twitter.com/sarahchen_dev"
+      ],
+      "worksFor": [
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "TechCorp Inc."
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "StartupXYZ"
+        }
+      ],
+      "alumniOf": [
+        {
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          "name": "University of Technology"
+        }
+      ],
+      "knowsAbout": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Python",
+        "TensorFlow",
+        "AWS",
+        "PostgreSQL"
+      ],
+      "hasOccupation": [
+        {
+          "@type": "Occupation",
+          "name": "Senior Software Engineer & AI Specialist",
+          "occupationLocation": {
+            "@type": "City",
+            "name": "Seattle, WA"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- WebSite Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://sarahchen.dev/#website",
+      "name": "Sarah Chen - Portfolio",
+      "url": "https://sarahchen.dev",
+      "description": "Experienced software engineer with 8+ years of expertise in full-stack development, machine learning, and AI systems.",
+      "author": {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://sarahchen.dev/#person",
+        "name": "Sarah Chen"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": "https://sarahchen.dev/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      ]
+    }
+    </script>
+
+    <!-- CreativeWork Schema - AI Content Generator Project -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "@id": "https://sarahchen.dev/projects/ai-content-generator",
+      "name": "AI Content Generator",
+      "description": "A sophisticated content generation platform that uses GPT-4 and custom fine-tuned models to create high-quality articles, social media posts, and marketing copy.",
+      "author": {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://sarahchen.dev/#person",
+        "name": "Sarah Chen"
+      },
+      "dateCreated": "2023-01-01",
+      "dateModified": "2023-08-15",
+      "keywords": [
+        "React",
+        "Node.js",
+        "Python",
+        "OpenAI API",
+        "PostgreSQL",
+        "Redis"
+      ],
+      "about": [
+        "Multi-model AI integration (GPT-4, Claude, custom models)",
+        "Real-time content optimization",
+        "SEO analysis and suggestions",
+        "Team collaboration tools",
+        "Content scheduling and publishing"
+      ],
+      "genre": "Web Application",
+      "programmingLanguage": [
+        "React",
+        "Node.js",
+        "Python"
+      ],
+      "url": "https://ai-content-gen.com",
+      "codeRepository": "https://github.com/sarahchen/ai-content-generator"
+    }
+    </script>
+
+    <!-- CreativeWork Schema - E-commerce Analytics Platform -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "@id": "https://sarahchen.dev/projects/ecommerce-analytics",
+      "name": "E-commerce Analytics Platform",
+      "description": "Comprehensive analytics platform for e-commerce businesses with real-time dashboards, predictive analytics, and automated reporting.",
+      "author": {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://sarahchen.dev/#person",
+        "name": "Sarah Chen"
+      },
+      "dateCreated": "2022-06-01",
+      "dateModified": "2023-02-15",
+      "keywords": [
+        "Vue.js",
+        "Go",
+        "PostgreSQL",
+        "InfluxDB",
+        "Grafana"
+      ],
+      "about": [
+        "Real-time sales tracking",
+        "Customer behavior analysis",
+        "Inventory predictions",
+        "Automated report generation",
+        "ROI optimization recommendations"
+      ],
+      "genre": "Analytics Platform",
+      "programmingLanguage": [
+        "Vue.js",
+        "Go"
+      ],
+      "url": "https://ecom-analytics.demo.com",
+      "codeRepository": "https://github.com/sarahchen/ecommerce-analytics"
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://sarahchen.dev/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://sarahchen.dev"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Portfolio",
+          "item": "https://sarahchen.dev/portfolio"
+        }
+      ]
+    }
+    </script>
+
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": "https://sarahchen.dev/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What programming languages do you specialize in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "I specialize in JavaScript, TypeScript, Python, and Go. I have extensive experience with React, Node.js, and various AI/ML frameworks including TensorFlow and PyTorch."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work on AI and machine learning projects?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, I have significant experience with AI and machine learning. I've built AI-powered recommendation systems, content generation platforms, and predictive analytics tools using technologies like TensorFlow, PyTorch, and various APIs including OpenAI."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What types of projects do you work on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "I work on a wide range of projects including full-stack web applications, AI-powered platforms, e-commerce solutions, analytics dashboards, and developer tools. I particularly enjoy projects that combine traditional web development with cutting-edge AI technologies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I contact you for a project?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can reach me via email at sarah.chen@example.com or connect with me on LinkedIn at https://linkedin.com/in/sarahchen-dev. I'm always interested in discussing new opportunities and challenging projects."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you offer consulting services?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, I offer consulting services for AI integration, software architecture, and full-stack development. I can help with technical strategy, code reviews, team mentoring, and project implementation."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- JobPosting Schema - Current Position -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "JobPosting",
+      "@id": "https://sarahchen.dev/experience/current",
+      "title": "Senior Software Engineer & AI Specialist",
+      "description": "Leading AI integration initiatives and developing scalable web applications. Responsible for architectural decisions and mentoring junior developers.",
+      "hiringOrganization": {
+        "@type": "Organization",
+        "name": "TechCorp Inc."
+      },
+      "jobLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Seattle, WA"
+        }
+      },
+      "employmentType": "FULL_TIME",
+      "datePosted": "2021-03-01",
+      "skills": "React, Node.js, Python, TensorFlow, AWS, PostgreSQL"
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Sarah Chen</h1>
+        <p>Senior Software Engineer & AI Specialist</p>
+        <nav aria-label="Breadcrumb">
+            <ol>
+                <li><a href="/">Home</a></li>
+                <li><a href="/portfolio" aria-current="page">Portfolio</a></li>
+            </ol>
+        </nav>
+    </header>
+
+    <main>
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Experienced software engineer with 8+ years of expertise in full-stack development, machine learning, and AI systems. Passionate about building scalable applications and implementing cutting-edge AI solutions.</p>
+        </section>
+
+        <section id="projects">
+            <h2>Featured Projects</h2>
+            
+            <article>
+                <h3>AI Content Generator</h3>
+                <p>A sophisticated content generation platform that uses GPT-4 and custom fine-tuned models.</p>
+                <ul>
+                    <li>Multi-model AI integration</li>
+                    <li>Real-time content optimization</li>
+                    <li>Team collaboration tools</li>
+                </ul>
+                <p><strong>Technologies:</strong> React, Node.js, Python, OpenAI API, PostgreSQL</p>
+                <p><a href="https://ai-content-gen.com">View Demo</a> | <a href="https://github.com/sarahchen/ai-content-generator">View Code</a></p>
+            </article>
+
+            <article>
+                <h3>E-commerce Analytics Platform</h3>
+                <p>Comprehensive analytics platform for e-commerce businesses with real-time dashboards.</p>
+                <ul>
+                    <li>Real-time sales tracking</li>
+                    <li>Predictive analytics</li>
+                    <li>Automated reporting</li>
+                </ul>
+                <p><strong>Technologies:</strong> Vue.js, Go, PostgreSQL, InfluxDB, Grafana</p>
+                <p><a href="https://ecom-analytics.demo.com">View Demo</a> | <a href="https://github.com/sarahchen/ecommerce-analytics">View Code</a></p>
+            </article>
+        </section>
+
+        <section id="faq">
+            <h2>Frequently Asked Questions</h2>
+            
+            <details>
+                <summary>What programming languages do you specialize in?</summary>
+                <p>I specialize in JavaScript, TypeScript, Python, and Go. I have extensive experience with React, Node.js, and various AI/ML frameworks including TensorFlow and PyTorch.</p>
+            </details>
+
+            <details>
+                <summary>Do you work on AI and machine learning projects?</summary>
+                <p>Yes, I have significant experience with AI and machine learning. I've built AI-powered recommendation systems, content generation platforms, and predictive analytics tools.</p>
+            </details>
+
+            <details>
+                <summary>What types of projects do you work on?</summary>
+                <p>I work on full-stack web applications, AI-powered platforms, e-commerce solutions, analytics dashboards, and developer tools.</p>
+            </details>
+
+            <details>
+                <summary>How can I contact you for a project?</summary>
+                <p>You can reach me via email at sarah.chen@example.com or connect with me on LinkedIn.</p>
+            </details>
+
+            <details>
+                <summary>Do you offer consulting services?</summary>
+                <p>Yes, I offer consulting services for AI integration, software architecture, and full-stack development.</p>
+            </details>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Sarah Chen. All rights reserved.</p>
+        <p>
+            <a href="https://linkedin.com/in/sarahchen-dev">LinkedIn</a> |
+            <a href="https://github.com/sarahchen">GitHub</a> |
+            <a href="https://twitter.com/sarahchen_dev">Twitter</a>
+        </p>
+    </footer>
+</body>
+</html>

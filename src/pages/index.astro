@@ -1,0 +1,122 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import type { PersonSchema } from '@/types';
+
+const person: PersonSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Your Name',
+  jobTitle: 'Software Developer',
+  description: 'Passionate developer creating amazing web experiences',
+  url: Astro.site?.toString(),
+  email: 'your.email@example.com',
+  sameAs: [
+    'https://github.com/yourusername',
+    'https://linkedin.com/in/yourusername',
+    'https://twitter.com/yourusername'
+  ],
+  knowsAbout: [
+    'TypeScript',
+    'React',
+    'Astro',
+    'Node.js',
+    'Web Development'
+  ]
+};
+---
+
+<BaseLayout 
+  title="AI First Portfolio - Modern Portfolio Template"
+  description="An AI-optimized personal website template built with TypeScript and Astro"
+  person={person}
+>
+  <main class="min-h-screen">
+    <div class="container mx-auto px-4 py-16">
+      <!-- Hero Section -->
+      <section class="text-center mb-16">
+        <h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          AI First Portfolio
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+          A modern, AI-optimized personal website template system built with TypeScript and Astro
+        </p>
+        <div class="space-x-4">
+          <a href="#templates" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+            Choose Template
+          </a>
+          <a href="https://github.com/yourusername/ai-first-portfolio" class="border border-gray-300 hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800 px-8 py-3 rounded-lg font-semibold transition-colors">
+            View on GitHub
+          </a>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-12">Features</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4">🚀</div>
+            <h3 class="text-xl font-semibold mb-2">Built with Astro & TypeScript</h3>
+            <p class="text-gray-600 dark:text-gray-300">Modern, fast, and type-safe development experience</p>
+          </div>
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4">🤖</div>
+            <h3 class="text-xl font-semibold mb-2">AI-Optimized</h3>
+            <p class="text-gray-600 dark:text-gray-300">Automatic llms.txt generation for better AI discoverability</p>
+          </div>
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4">📊</div>
+            <h3 class="text-xl font-semibold mb-2">Structured Data</h3>
+            <p class="text-gray-600 dark:text-gray-300">Built-in JSON-LD support for better SEO</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Templates Section -->
+      <section id="templates" class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-12">Available Templates</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-4">👨‍💻 Developer</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">Perfect for software engineers showcasing projects, skills, and code contributions.</p>
+            <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+              <li>• Project galleries</li>
+              <li>• GitHub integration</li>
+              <li>• Tech stack showcase</li>
+              <li>• Code snippets</li>
+            </ul>
+          </div>
+          <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-4">🎨 Designer</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">Ideal for UI/UX designers and creatives to showcase visual work and case studies.</p>
+            <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+              <li>• Portfolio galleries</li>
+              <li>• Case study layouts</li>
+              <li>• Visual showcases</li>
+              <li>• Design process docs</li>
+            </ul>
+          </div>
+          <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-semibold mb-4">✍️ Writer</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">Great for content creators and writers to highlight articles, publications, and writing samples.</p>
+            <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-1">
+              <li>• Blog integration</li>
+              <li>• Publication showcase</li>
+              <li>• Writing samples</li>
+              <li>• Social media links</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Getting Started -->
+      <section class="text-center">
+        <h2 class="text-3xl font-bold mb-6">Ready to Get Started?</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-8">Clone the repository and customize your perfect AI-optimized portfolio</p>
+        <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 max-w-2xl mx-auto">
+          <code class="text-sm">git clone https://github.com/yourusername/ai-first-portfolio.git</code>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

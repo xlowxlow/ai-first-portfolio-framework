@@ -1,0 +1,295 @@
+---
+import { Play, Code, Eye, Download } from 'lucide-react'
+---
+
+<section id="demo" class="py-20 bg-gray-50 dark:bg-gray-800">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">See It In Action</h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+        Experience the power of AI-first portfolio generation with our interactive demo
+      </p>
+    </div>
+    
+    <!-- Interactive Demo Tabs -->
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap justify-center mb-8 border-b dark:border-gray-700">
+        <button class="demo-tab active px-6 py-3 font-semibold text-blue-600 border-b-2 border-blue-600" data-tab="cli">
+          CLI Generation
+        </button>
+        <button class="demo-tab px-6 py-3 font-semibold text-gray-600 hover:text-blue-600 transition-colors" data-tab="llms">
+          AI Content (llms.txt)
+        </button>
+        <button class="demo-tab px-6 py-3 font-semibold text-gray-600 hover:text-blue-600 transition-colors" data-tab="schema">
+          Structured Data
+        </button>
+        <button class="demo-tab px-6 py-3 font-semibold text-gray-600 hover:text-blue-600 transition-colors" data-tab="result">
+          Final Portfolio
+        </button>
+      </div>
+      
+      <!-- CLI Demo -->
+      <div class="demo-content" data-content="cli">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h3 class="text-2xl font-bold mb-4">Interactive CLI Setup</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+              Our intelligent CLI guides you through creating an AI-optimized portfolio in minutes.
+              Just answer a few questions, and we'll generate everything for you.
+            </p>
+            <div class="space-y-3">
+              <div class="flex items-center space-x-2 text-sm text-green-600">
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span>Project initialization</span>
+              </div>
+              <div class="flex items-center space-x-2 text-sm text-green-600">
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span>Personal information collection</span>
+              </div>
+              <div class="flex items-center space-x-2 text-sm text-green-600">
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span>Template selection</span>
+              </div>
+              <div class="flex items-center space-x-2 text-sm text-green-600">
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span>AI optimization setup</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-900 rounded-lg p-6 shadow-2xl">
+            <div class="flex items-center space-x-2 mb-4">
+              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span class="text-gray-400 text-sm ml-2">Terminal</span>
+            </div>
+            <div class="font-mono text-sm space-y-2">
+              <div class="text-green-400">$ npx create-ai-portfolio@latest</div>
+              <div class="text-blue-400">ℹ️ Welcome to AI-First Portfolio!</div>
+              <div class="text-white">❓ What's your full name? <span class="text-yellow-300">Alex Chen</span></div>
+              <div class="text-white">❓ Your job title? <span class="text-yellow-300">Full-Stack Developer</span></div>
+              <div class="text-white">❓ Choose a template: <span class="text-yellow-300">Developer Portfolio</span></div>
+              <div class="text-white">❓ Enable AI optimization? <span class="text-yellow-300">Yes</span></div>
+              <div class="text-gray-400">✨ Generating your AI-optimized portfolio...</div>
+              <div class="text-green-400">✅ Done! Run 'npm run dev' to start.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- llms.txt Demo -->
+      <div class="demo-content hidden" data-content="llms">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-2xl font-bold mb-4">AI-Readable Content Generation</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+              Automatically generates llms.txt files that AI systems can easily understand and process.
+              This ensures your portfolio is discoverable by AI assistants and recruitment tools.
+            </p>
+            <div class="space-y-3">
+              <div class="flex items-center space-x-2 text-sm">
+                <Code className="w-4 h-4 text-blue-500" client:load />
+                <span>Structured professional summary</span>
+              </div>
+              <div class="flex items-center space-x-2 text-sm">
+                <Code className="w-4 h-4 text-blue-500" client:load />
+                <span>Skills and expertise mapping</span>
+              </div>
+              <div class="flex items-center space-x-2 text-sm">
+                <Code className="w-4 h-4 text-blue-500" client:load />
+                <span>Project descriptions and achievements</span>
+              </div>
+              <div class="flex items-center space-x-2 text-sm">
+                <Code className="w-4 h-4 text-blue-500" client:load />
+                <span>Contact and availability information</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 rounded-lg p-6 shadow-2xl border">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-sm text-gray-500">public/llms.txt</span>
+              <button class="text-blue-500 hover:text-blue-600">
+                <Download className="w-4 h-4" client:load />
+              </button>
+            </div>
+            <div class="font-mono text-sm space-y-2 text-gray-700 dark:text-gray-300">
+              <div># AI-Readable Portfolio Summary</div>
+              <div class="text-gray-500"># Generated: 2024-01-20</div>
+              <div></div>
+              <div>## Personal Information</div>
+              <div>Name: Alex Chen</div>
+              <div>Role: Senior Full-Stack Developer</div>
+              <div>Email: alex@example.com</div>
+              <div></div>
+              <div>## Skills</div>
+              <div>- React (Expert - 5 years)</div>
+              <div>- Node.js (Advanced - 4 years)</div>
+              <div>- TypeScript (Advanced - 3 years)</div>
+              <div></div>
+              <div>## Featured Projects</div>
+              <div>1. E-commerce Platform</div>
+              <div>   - Technologies: React, Node.js</div>
+              <div>   - Impact: 50K+ users</div>
+              <div class="text-gray-500">...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Schema Demo -->
+      <div class="demo-content hidden" data-content="schema">
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-2xl font-bold mb-4">Rich Structured Data</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+              Generates comprehensive Schema.org structured data that helps search engines
+              and AI systems understand your content better, leading to rich snippets and improved rankings.
+            </p>
+            <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+              <div class="flex items-center space-x-2 mb-2">
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span class="text-sm font-semibold text-green-800 dark:text-green-400">SEO Benefits</span>
+              </div>
+              <ul class="text-sm text-green-700 dark:text-green-300 space-y-1">
+                <li>• Rich snippets in search results</li>
+                <li>• Knowledge graph appearances</li>
+                <li>• Better AI understanding</li>
+                <li>• Improved search rankings</li>
+              </ul>
+            </div>
+          </div>
+          <div class="bg-white dark:bg-gray-900 rounded-lg p-6 shadow-2xl border">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-sm text-gray-500">Schema.org JSON-LD</span>
+              <button class="text-blue-500 hover:text-blue-600">
+                <Eye className="w-4 h-4" client:load />
+              </button>
+            </div>
+            <div class="font-mono text-sm space-y-1 text-gray-700 dark:text-gray-300">
+              <div class="text-purple-600">{
+              <div class="ml-2">"@context": "https://schema.org",</div>
+              <div class="ml-2">"@type": "Person",</div>
+              <div class="ml-2">"name": "Alex Chen",</div>
+              <div class="ml-2">"jobTitle": "Full-Stack Developer",</div>
+              <div class="ml-2">"url": "https://alexchen.dev",</div>
+              <div class="ml-2">"sameAs": [</div>
+              <div class="ml-4">"https://github.com/alex",</div>
+              <div class="ml-4">"https://linkedin.com/in/alex"</div>
+              <div class="ml-2">],</div>
+              <div class="ml-2">"knowsAbout": [</div>
+              <div class="ml-4">"React", "Node.js", "AI"</div>
+              <div class="ml-2">],</div>
+              <div class="ml-2">"worksFor": {</div>
+              <div class="ml-4">"@type": "Organization",</div>
+              <div class="ml-4">"name": "TechCorp"</div>
+              <div class="ml-2">}</div>
+              <div>}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Result Demo -->
+      <div class="demo-content hidden" data-content="result">
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-4">Beautiful, AI-Optimized Portfolio</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-8">
+            The final result: a stunning portfolio that's fast, accessible, and optimized for both humans and AI systems.
+          </p>
+          
+          <!-- Portfolio Preview -->
+          <div class="bg-white dark:bg-gray-900 rounded-lg shadow-2xl border overflow-hidden max-w-4xl mx-auto">
+            <div class="bg-gray-100 dark:bg-gray-800 px-4 py-3 flex items-center space-x-2">
+              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+              <div class="flex-1 text-center">
+                <span class="text-sm text-gray-600 dark:text-gray-400">https://alexchen.dev</span>
+              </div>
+            </div>
+            
+            <div class="p-8">
+              <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full mx-auto mb-4"></div>
+                <h1 class="text-3xl font-bold mb-2">Alex Chen</h1>
+                <p class="text-gray-600 dark:text-gray-400">Senior Full-Stack Developer</p>
+              </div>
+              
+              <div class="grid md:grid-cols-3 gap-6 text-left">
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                  <h3 class="font-semibold mb-2">Featured Projects</h3>
+                  <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    <div>• E-commerce Platform</div>
+                    <div>• AI Chat Application</div>
+                    <div>• Portfolio Framework</div>
+                  </div>
+                </div>
+                
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                  <h3 class="font-semibold mb-2">Core Skills</h3>
+                  <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    <div>• React & TypeScript</div>
+                    <div>• Node.js & Python</div>
+                    <div>• AI Integration</div>
+                  </div>
+                </div>
+                
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+                  <h3 class="font-semibent mb-2">AI Optimized</h3>
+                  <div class="space-y-2 text-sm text-green-600">
+                    <div>✓ llms.txt generated</div>
+                    <div>✓ Schema.org markup</div>
+                    <div>✓ 98+ Lighthouse score</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-8">
+            <a 
+              href="https://showcase.ai-portfolio.dev" 
+              target="_blank"
+              class="inline-flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              <Play className="w-4 h-4" client:load />
+              <span>View Full Demo</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Demo tab functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.demo-tab')
+    const contents = document.querySelectorAll('.demo-content')
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        const targetTab = this.getAttribute('data-tab')
+        
+        // Update tab styles
+        tabs.forEach(t => {
+          t.classList.remove('active', 'text-blue-600', 'border-b-2', 'border-blue-600')
+          t.classList.add('text-gray-600')
+        })
+        
+        this.classList.add('active', 'text-blue-600', 'border-b-2', 'border-blue-600')
+        this.classList.remove('text-gray-600')
+        
+        // Show/hide content
+        contents.forEach(content => {
+          if (content.getAttribute('data-content') === targetTab) {
+            content.classList.remove('hidden')
+          } else {
+            content.classList.add('hidden')
+          }
+        })
+      })
+    })
+  })
+</script>

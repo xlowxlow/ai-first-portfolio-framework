@@ -1,0 +1,386 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { portfolioData } from '../data/portfolio';
+import { blogPosts } from '../data/blog-posts';
+
+const { personalInfo, skills, experience, projects } = portfolioData;
+const featuredProjects = projects.filter(p => p.status === 'Completed').slice(0, 3);
+const featuredPosts = blogPosts.filter(p => p.featured).slice(0, 2);
+---
+
+<BaseLayout title="Alex Chen - Senior Full-Stack Developer & AI Enthusiast">
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+    <div class="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="space-y-8 animate-fade-in">
+        <!-- Avatar -->
+        <div class="flex justify-center">
+          <div class="relative">
+            <img 
+              src="/images/alex-avatar.jpg" 
+              alt="Alex Chen"
+              class="w-32 h-32 lg:w-40 lg:h-40 rounded-full shadow-2xl border-4 border-white dark:border-gray-700"
+              loading="eager"
+            />
+            <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white dark:border-gray-700 animate-pulse"></div>
+          </div>
+        </div>
+        
+        <!-- Name and Title -->
+        <div class="space-y-4">
+          <h1 class="text-4xl lg:text-6xl xl:text-7xl font-bold">
+            <span class="text-gray-900 dark:text-white">Hi, I'm </span>
+            <span class="gradient-text">Alex Chen</span>
+          </h1>
+          <p class="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            {personalInfo.title}
+          </p>
+        </div>
+        
+        <!-- Bio -->
+        <p class="text-lg text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          {personalInfo.bio.slice(0, 200)}...
+        </p>
+        
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a href="/#projects" class="btn btn-primary px-8 py-3 text-lg">
+            View My Work
+          </a>
+          <a href="/#contact" class="btn btn-outline px-8 py-3 text-lg">
+            Get In Touch
+          </a>
+          <a href="/llms.txt" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+            📄 AI-readable resume (LLMs.txt)
+          </a>
+        </div>
+        
+        <!-- Social Links -->
+        <div class="flex justify-center space-x-6">
+          <a href={`https://github.com/${personalInfo.github}`} class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" aria-label="GitHub">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          <a href={`https://linkedin.com/in/${personalInfo.linkedin}`} class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" aria-label="LinkedIn">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href={`https://twitter.com/${personalInfo.twitter}`} class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" aria-label="Twitter">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+          </a>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle max-w-3xl mx-auto">
+          Passionate about building innovative solutions that bridge technology and human needs
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- About Content -->
+        <div class="space-y-6 reveal-left">
+          <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            {personalInfo.bio}
+          </p>
+          
+          <div class="grid grid-cols-2 gap-6">
+            <div class="text-center p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
+              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">8+</div>
+              <div class="text-gray-600 dark:text-gray-400">Years Experience</div>
+            </div>
+            <div class="text-center p-6 bg-green-50 dark:bg-green-900/20 rounded-xl">
+              <div class="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">50+</div>
+              <div class="text-gray-600 dark:text-gray-400">Projects Completed</div>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap gap-2">
+            {skills.filter(skill => skill.level === 'Expert').slice(0, 6).map(skill => (
+              <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium">
+                {skill.name}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        <!-- Skills Grid -->
+        <div class="reveal-right">
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Technical Skills</h3>
+          <div class="grid grid-cols-1 gap-4">
+            {['Frontend', 'Backend', 'AI/ML', 'DevOps'].map(category => {
+              const categorySkills = skills.filter(skill => skill.category === category);
+              return (
+                <div class="card p-4">
+                  <h4 class="font-semibold text-gray-900 dark:text-white mb-3">{category}</h4>
+                  <div class="space-y-2">
+                    {categorySkills.slice(0, 3).map(skill => (
+                      <div class="flex justify-between items-center">
+                        <span class="text-gray-700 dark:text-gray-300">{skill.name}</span>
+                        <div class="flex gap-1">
+                          {[1, 2, 3, 4, 5].map(level => (
+                            <div class={`w-2 h-2 rounded-full ${
+                              level <= (['Beginner', 'Intermediate', 'Advanced', 'Expert'].indexOf(skill.level) + 2) 
+                                ? 'bg-blue-500' 
+                                : 'bg-gray-200 dark:bg-gray-600'
+                            }`}></div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">
+          A showcase of my latest work in web development and AI integration
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {featuredProjects.map((project, index) => (
+          <article class={`card card-hover p-6 reveal ${index % 2 === 0 ? 'reveal-left' : 'reveal-right'}`}>
+            <div class="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mb-4 flex items-center justify-center">
+              <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0l3.09 6.26L22 7.27l-5 4.87 1.18 6.88L12 15.77l-6.18 3.25L7 12.14 2 7.27l6.91-1.01L12 0z"/>
+              </svg>
+            </div>
+            
+            <div class="space-y-3">
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                {project.title}
+              </h3>
+              
+              <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-3">
+                {project.description}
+              </p>
+              
+              <div class="flex flex-wrap gap-2">
+                {project.technologies.slice(0, 3).map(tech => (
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              
+              <div class="flex justify-between items-center pt-2">
+                {project.demoUrl && (
+                  <a href={project.demoUrl} class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium">
+                    Live Demo →
+                  </a>
+                )}
+                {project.githubUrl && (
+                  <a href={project.githubUrl} class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300" aria-label="GitHub">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="/projects" class="btn btn-primary">
+          View All Projects
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="section bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">Latest Articles</h2>
+        <p class="section-subtitle">
+          Insights on web development, AI, and technology trends
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {featuredPosts.map((post, index) => (
+          <article class={`card card-hover p-6 reveal ${index % 2 === 0 ? 'reveal-left' : 'reveal-right'}`}>
+            <div class="aspect-video bg-gradient-to-br from-green-500 to-blue-600 rounded-lg mb-4 flex items-center justify-center">
+              <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+              </svg>
+            </div>
+            
+            <div class="space-y-3">
+              <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                <time>{new Date(post.publishDate).toLocaleDateString()}</time>
+                <span>•</span>
+                <span>{post.readTime} min read</span>
+              </div>
+              
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white line-clamp-2">
+                {post.title}
+              </h3>
+              
+              <p class="text-gray-600 dark:text-gray-400 line-clamp-3">
+                {post.excerpt}
+              </p>
+              
+              <div class="flex justify-between items-center pt-2">
+                <a href={`/blog/${post.slug}`} class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">
+                  Read More →
+                </a>
+                <div class="flex gap-2">
+                  {post.tags.slice(0, 2).map(tag => (
+                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      
+      <div class="text-center mt-12">
+        <a href="/blog" class="btn btn-primary">
+          Read All Articles
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">
+          Let's discuss your next project or collaboration opportunity
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Contact Info -->
+        <div class="reveal-left">
+          <div class="space-y-8">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Email</h3>
+                <p class="text-gray-600 dark:text-gray-400">{personalInfo.email}</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Location</h3>
+                <p class="text-gray-600 dark:text-gray-400">{personalInfo.location}</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Response Time</h3>
+                <p class="text-gray-600 dark:text-gray-400">Usually within 24 hours</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Contact Form -->
+        <div class="reveal-right">
+          <form class="space-y-6" action="/api/contact" method="POST">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+              <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+              <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+            </div>
+            
+            <div>
+              <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Subject</label>
+              <input type="text" id="subject" name="subject" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+            </div>
+            
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+              <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"></textarea>
+            </div>
+            
+            <button type="submit" class="w-full btn btn-primary py-3 text-lg">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Intersection Observer for animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  // Observe all reveal elements
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach((el) => {
+    observer.observe(el);
+  });
+</script>

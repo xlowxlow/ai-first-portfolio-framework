@@ -1,0 +1,50 @@
+---
+import type { PersonSchema } from '@/types';
+
+export interface Props {
+  title: string;
+  description: string;
+  person?: PersonSchema;
+  canonical?: string;
+  image?: string;
+}
+
+const { title, description, person, canonical, image } = Astro.props;
+const siteUrl = Astro.site?.toString() || 'http://localhost:4321';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    
+    <!-- Canonical URL -->
+    {canonical && <link rel="canonical" href={canonical} />}
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical || siteUrl} />
+    {image && <meta property="og:image" content={image} />}
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {image && <meta name="twitter:image" content={image} />}
+    
+    <!-- Structured Data -->
+    {person && (
+      <script type="application/ld+json" set:html={JSON.stringify(person)} />
+    )}
+  </head>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <slot />
+  </body>
+</html>

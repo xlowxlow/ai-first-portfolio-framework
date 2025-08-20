@@ -1,0 +1,155 @@
+---
+export interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  color?: 'blue' | 'gray' | 'green' | 'red' | 'yellow' | 'purple';
+  type?: 'spinner' | 'dots' | 'pulse' | 'bars' | 'ring';
+  message?: string;
+  fullscreen?: boolean;
+  overlay?: boolean;
+}
+
+const {
+  size = 'md',
+  color = 'blue',
+  type = 'spinner',
+  message,
+  fullscreen = false,
+  overlay = false
+} = Astro.props;
+
+// Size classes
+const sizeClasses = {
+  sm: 'w-4 h-4',
+  md: 'w-8 h-8',
+  lg: 'w-12 h-12',
+  xl: 'w-16 h-16'
+};
+
+// Color classes
+const colorClasses = {
+  blue: 'text-blue-600',
+  gray: 'text-gray-600',
+  green: 'text-green-600',
+  red: 'text-red-600',
+  yellow: 'text-yellow-600',
+  purple: 'text-purple-600'
+};
+
+const sizeClass = sizeClasses[size];
+const colorClass = colorClasses[color];
+---
+
+<div 
+  class={`loading-container ${fullscreen ? 'fixed inset-0 z-50 flex items-center justify-center' : 'flex items-center justify-center'} ${overlay ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm' : ''}`}
+  role="status" 
+  aria-label={message || 'Loading...'}
+>
+  {type === 'spinner' && (
+    <div class={`animate-spin ${sizeClass} ${colorClass}`}>
+      <svg fill="none" viewBox="0 0 24 24">
+        <circle 
+          class="opacity-25" 
+          cx="12" 
+          cy="12" 
+          r="10" 
+          stroke="currentColor" 
+          stroke-width="4"
+        ></circle>
+        <path 
+          class="opacity-75" 
+          fill="currentColor" 
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        ></path>
+      </svg>
+    </div>
+  )}
+
+  {type === 'dots' && (
+    <div class="flex space-x-1">
+      <div class={`${sizeClass.split(' ')[0]} ${sizeClass.split(' ')[0]} bg-current ${colorClass} rounded-full animate-bounce`} style="animation-delay: 0ms;"></div>
+      <div class={`${sizeClass.split(' ')[0]} ${sizeClass.split(' ')[0]} bg-current ${colorClass} rounded-full animate-bounce`} style="animation-delay: 150ms;"></div>
+      <div class={`${sizeClass.split(' ')[0]} ${sizeClass.split(' ')[0]} bg-current ${colorClass} rounded-full animate-bounce`} style="animation-delay: 300ms;"></div>
+    </div>
+  )}
+
+  {type === 'pulse' && (
+    <div class={`${sizeClass} ${colorClass} animate-pulse`}>
+      <div class="w-full h-full bg-current rounded-full opacity-75"></div>
+    </div>
+  )}
+
+  {type === 'bars' && (
+    <div class="flex space-x-1">
+      {[0, 1, 2].map((i) => (
+        <div 
+          class={`w-1 bg-current ${colorClass} animate-pulse`}
+          style={`height: ${size === 'sm' ? '12px' : size === 'md' ? '20px' : size === 'lg' ? '28px' : '36px'}; animation-delay: ${i * 200}ms; animation-duration: 1.4s;`}
+        ></div>
+      ))}
+    </div>
+  )}
+
+  {type === 'ring' && (
+    <div class={`${sizeClass} relative`}>
+      <div class={`absolute inset-0 rounded-full border-2 border-gray-200 dark:border-gray-700`}></div>
+      <div class={`absolute inset-0 rounded-full border-2 border-transparent border-t-current ${colorClass} animate-spin`}></div>
+    </div>
+  )}
+
+  {message && (
+    <span class={`ml-3 text-sm font-medium ${colorClass} ${fullscreen ? 'text-base' : ''}`}>
+      {message}
+    </span>
+  )}
+
+  <span class="sr-only">Loading...</span>
+</div>
+
+<style>
+  .loading-container {
+    min-height: 40px;
+  }
+
+  /* Custom animations for different loading types */
+  @keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+      transform: translate3d(0, 0, 0);
+    }
+    40%, 43% {
+      transform: translate3d(0, -8px, 0);
+    }
+    70% {
+      transform: translate3d(0, -4px, 0);
+    }
+    90% {
+      transform: translate3d(0, -2px, 0);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Accessibility: Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-spin,
+    .animate-bounce,
+    .animate-pulse {
+      animation: none;
+    }
+  }
+</style>
